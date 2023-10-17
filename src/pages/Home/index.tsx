@@ -181,7 +181,7 @@ function Home() {
   }, [addFunctionCalled]);
 
   return (
-    <div className="flex">
+    <div className="flex w-full items-center justify-center">
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
@@ -229,8 +229,9 @@ function Home() {
                                     <Textarea
                                       name={item.id}
                                       id={item.id}
-                                      className="resize-none border-none shadow-none hover:cursor-default hover:ring-1 focus-visible:cursor-text focus-visible:ring-2 "
+                                      className="resize-none overflow-hidden border-none shadow-none hover:cursor-default hover:overflow-auto hover:ring-1 focus-visible:cursor-text focus-visible:ring-2 "
                                       placeholder="Task title"
+                                      // maxLength={20}
                                       ref={provided.innerRef}
                                       value={item.content}
                                       onChange={(e) => {
