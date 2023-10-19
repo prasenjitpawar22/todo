@@ -14,6 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Badge } from "./ui/badge";
+import { columnstate } from "./board-provider";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -77,7 +79,27 @@ export function DataTable<TData, TValue>({
                     style={{ width: cell.column.getSize() }}
                     key={cell.id}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {cell.id === `${cell.row.index}_state` ? (
+                      <Badge
+                        variant={"secondary"}
+                        className={`cursor-default select-none ${
+                          cell.getValue() === columnstate.In_progress
+                            ? `bg-blue-300 hover:bg-blue-300 dark:bg-blue-500 hover:dark:dark:bg-blue-500`
+                            : cell.getValue() === columnstate.In_review
+                            ? `bg-orange-300 hover:bg-orange-300 dark:bg-orange-500 hover:dark:bg-orange-500`
+                            : cell.getValue() === columnstate.Done
+                            ? `bg-green-300 hover:bg-green-300 dark:bg-green-500 hover:dark:bg-green-500`
+                            : `text-inherit`
+                        } `}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </Badge>
+                    ) : (
+                      flexRender(cell.column.columnDef.cell, cell.getContext())
+                    )}
                   </TableCell>
                 ))}
               </TableRow>

@@ -41,7 +41,7 @@ export type BoardProviderState = {
 const initialState: BoardProviderState = {
   columns: {
     [uuidv4v4()]: {
-      name: columnstate.Done,
+      name: columnstate.To_do,
       items: [],
     },
     [uuidv4v4()]: {
@@ -53,7 +53,7 @@ const initialState: BoardProviderState = {
       items: [],
     },
     [uuidv4v4()]: {
-      name: columnstate.To_do,
+      name: columnstate.Done,
       items: [],
     },
   },

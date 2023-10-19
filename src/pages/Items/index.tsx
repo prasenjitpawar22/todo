@@ -14,7 +14,11 @@ const columns: ColumnDef<Task>[] = [
   { accessorKey: "state", header: "Status" },
   { accessorKey: "tags", header: "Tags" },
   { accessorKey: "comments", header: "Comments" },
-  { accessorKey: "activityDate", header: "Activity Date" },
+  {
+    accessorKey: "activityDate",
+    header: "Activity Date",
+    enableResizing: false,
+  },
 ];
 
 export default function WorkItems() {

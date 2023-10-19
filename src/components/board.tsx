@@ -10,7 +10,13 @@ import {
 import { v4 as uuidv4v4 } from "uuid";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { BoardProviderState, Column, Task, useBoard } from "./board-provider";
+import {
+  BoardProviderState,
+  Column,
+  Task,
+  columnstate,
+  useBoard,
+} from "./board-provider";
 
 export default function Board() {
   const { columns, setColumns } = useBoard();
@@ -188,7 +194,19 @@ export default function Board() {
                                       }}
                                     />
                                     <div className="flex w-full items-end justify-end gap-2">
-                                      <Badge variant={"secondary"}>
+                                      <Badge
+                                        variant={"secondary"}
+                                        className={
+                                          item.state === columnstate.In_progress
+                                            ? `bg-blue-300 dark:bg-blue-500`
+                                            : item.state ===
+                                              columnstate.In_review
+                                            ? `bg-orange-300 dark:bg-orange-500`
+                                            : item.state === columnstate.Done
+                                            ? `bg-green-300 dark:bg-green-500`
+                                            : ``
+                                        }
+                                      >
                                         {item.state}
                                       </Badge>
                                       <Trash2Icon
