@@ -125,7 +125,7 @@ export default function Board() {
       >
         {Object.entries(columns)?.map(([columnId, column], index) => {
           return (
-            <div className="mx-2 flex flex-col" key={columnId}>
+            <div className="mr-3 flex flex-col" key={columnId}>
               <Card className="w-full rounded-bl-none rounded-br-none border-secondary bg-primary text-center text-secondary">
                 <CardDescription className="text-md flex select-none justify-between px-4 py-2 font-[500] text-slate-100">
                   <span>{column.name}</span>

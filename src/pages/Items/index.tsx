@@ -7,6 +7,7 @@ const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: "Id",
+    size: 350,
   },
   { accessorKey: "title", header: "Title" },
   { accessorKey: "assignedTo", header: "Assigned To" },
