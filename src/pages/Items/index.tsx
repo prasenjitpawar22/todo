@@ -1,23 +1,14 @@
+import { Task, columnstate, useBoard } from "@/components/board-provider";
 import { DataTable } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 
-export type WorkItem = {
-  id: string;
-  title: string;
-  assignedTo: string;
-  state: "In progress" | "Done" | "To do" | "In review";
-  tags: string[];
-  activityDate: string;
-  comments: string[];
-};
-
-const workItems: WorkItem[] = [
+const workItems: Task[] = [
   {
     activityDate: "",
     assignedTo: "",
     comments: [""],
     id: "31341",
-    state: "To do",
+    state: columnstate.Done,
     tags: [""],
     title: "Create user",
   },
@@ -26,7 +17,7 @@ const workItems: WorkItem[] = [
     assignedTo: "",
     comments: [""],
     id: "31341",
-    state: "To do",
+    state: columnstate.Done,
     tags: [""],
     title: "Create user",
   },
@@ -35,7 +26,7 @@ const workItems: WorkItem[] = [
     assignedTo: "",
     comments: [""],
     id: "31341",
-    state: "To do",
+    state: columnstate.Done,
     tags: [""],
     title: "Create user",
   },
@@ -44,7 +35,7 @@ const workItems: WorkItem[] = [
     assignedTo: "",
     comments: [""],
     id: "31341",
-    state: "To do",
+    state: columnstate.Done,
     tags: [""],
     title: "Create user",
   },
@@ -53,13 +44,13 @@ const workItems: WorkItem[] = [
     assignedTo: "",
     comments: [""],
     id: "31341",
-    state: "To do",
+    state: columnstate.Done,
     tags: [""],
     title: "Create user",
   },
 ];
 
-const columns: ColumnDef<WorkItem>[] = [
+const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: "Id",
@@ -73,6 +64,7 @@ const columns: ColumnDef<WorkItem>[] = [
 ];
 
 export default function WorkItems() {
+  // const / = useBoard()
   return (
     <>
       <DataTable columns={columns} data={workItems} />

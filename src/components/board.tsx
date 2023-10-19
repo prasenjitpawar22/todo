@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import { BadgePlus, Trash2Icon } from "lucide-react";
-import React, { useState, Dispatch, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -10,53 +10,20 @@ import {
 import { v4 as uuidv4v4 } from "uuid";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-
-type TItem = {
-  id: string;
-  content: string;
-  tag: string;
-};
-
-type TColumn = {
-  name: string;
-  items: TItem[];
-};
-
-type TColumns = {
-  [x: string]: TColumn;
-};
-
-type ISetColumns = Dispatch<React.SetStateAction<TColumns>>;
-
-const columnsFromBackend = {
-  [uuidv4v4()]: {
-    name: "To do",
-    items: [],
-  },
-  [uuidv4v4()]: {
-    name: "In Progress",
-    items: [],
-  },
-  [uuidv4v4()]: {
-    name: "In Review",
-    items: [],
-  },
-  [uuidv4v4()]: {
-    name: "Done",
-    items: [],
-  },
-};
+import { BoardProviderState, Column, Task, useBoard } from "./board-provider";
 
 export default function Board() {
-  const [columns, setColumns] = useState<TColumns>(columnsFromBackend);
+  const { columns, setColumns } = useBoard();
   const [addFunctionCalled, setAddFunctionCalled] = useState({
     state: false,
     itemId: "",
   });
 
+  console.log(columns);
+
   // on drag
   const onDragEnd = useCallback(
-    (result: DropResult, columns: TColumns, setColumns: ISetColumns) => {
+    (result: DropResult, { columns, setColumns }: BoardProviderState) => {
       if (!result.destination) return;
       const { source, destination } = result;
 
@@ -67,7 +34,8 @@ export default function Board() {
         const destItems = [...destColumn.items];
         const [removed] = sourceItems.splice(source.index, 1);
         destItems.splice(destination.index, 0, removed);
-        destItems[destination.index].tag = destColumn.name;
+        destItems[destination.index].state = destColumn.name;
+
         setColumns({
           ...columns,
           [source.droppableId]: {
@@ -95,13 +63,22 @@ export default function Board() {
     },
     [],
   );
+
   // add task
   const handleAdd = useCallback(
     (columnId: string) => {
       const items = columns[columnId].items;
       const newItemId = uuidv4v4();
-      const newItems: TItem[] = [
-        { content: "", id: newItemId, tag: columns[columnId].name },
+      const newItems: Task[] = [
+        {
+          title: "",
+          id: newItemId,
+          state: columns[columnId].name,
+          activityDate: "",
+          assignedTo: "",
+          comments: [""],
+          tags: [""],
+        },
         ...items,
       ];
 
@@ -119,7 +96,7 @@ export default function Board() {
 
   // delete task
   const handleDelete = useCallback(
-    (item: TItem, column: TColumn, columnId: string) => {
+    (item: Task, column: Column, columnId: string) => {
       setColumns({
         ...columns,
         [columnId]: {
@@ -144,7 +121,7 @@ export default function Board() {
   return (
     <div className="flex w-full items-center">
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        onDragEnd={(result) => onDragEnd(result, { columns, setColumns })}
       >
         {Object.entries(columns)?.map(([columnId, column], index) => {
           return (
@@ -193,7 +170,7 @@ export default function Board() {
                                       placeholder="Task title"
                                       // maxLength={20}
                                       ref={provided.innerRef}
-                                      value={item.content}
+                                      value={item.title}
                                       onChange={(e) => {
                                         const items = columns[columnId].items;
                                         setColumns({
@@ -202,7 +179,7 @@ export default function Board() {
                                             ...column,
                                             items: items.map((data, i) => {
                                               if (data.id === item.id) {
-                                                data.content = e.target.value;
+                                                data.title = e.target.value;
                                               }
                                               return data;
                                             }),
@@ -212,7 +189,7 @@ export default function Board() {
                                     />
                                     <div className="flex w-full items-end justify-end gap-2">
                                       <Badge variant={"secondary"}>
-                                        {item.tag}
+                                        {item.state}
                                       </Badge>
                                       <Trash2Icon
                                         onClick={() =>
