@@ -70,7 +70,6 @@ export function BoardProvider({
 }: BoardProviderProps) {
   const [columns, setColumns] = useState<Columns>(() => {
     const columns = localStorage.getItem(storageKey);
-    console.log(JSON.parse(columns!));
 
     if (columns === "" || columns === null) return defaultBoard;
     return JSON.parse(columns);

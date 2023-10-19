@@ -1,54 +1,7 @@
 import { Task, columnstate, useBoard } from "@/components/board-provider";
 import { DataTable } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-
-const workItems: Task[] = [
-  {
-    activityDate: "",
-    assignedTo: "",
-    comments: [""],
-    id: "31341",
-    state: columnstate.Done,
-    tags: [""],
-    title: "Create user",
-  },
-  {
-    activityDate: "",
-    assignedTo: "",
-    comments: [""],
-    id: "31341",
-    state: columnstate.Done,
-    tags: [""],
-    title: "Create user",
-  },
-  {
-    activityDate: "",
-    assignedTo: "",
-    comments: [""],
-    id: "31341",
-    state: columnstate.Done,
-    tags: [""],
-    title: "Create user",
-  },
-  {
-    activityDate: "",
-    assignedTo: "",
-    comments: [""],
-    id: "31341",
-    state: columnstate.Done,
-    tags: [""],
-    title: "Create user",
-  },
-  {
-    activityDate: "",
-    assignedTo: "",
-    comments: [""],
-    id: "31341",
-    state: columnstate.Done,
-    tags: [""],
-    title: "Create user",
-  },
-];
+import { useEffect, useState } from "react";
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -64,10 +17,22 @@ const columns: ColumnDef<Task>[] = [
 ];
 
 export default function WorkItems() {
-  // const / = useBoard()
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const board = useBoard();
+
+  useEffect(() => {
+    const data = board.columns;
+    let newTasks: Task[] = [];
+    for (const key in data) {
+      const obj = data[key];
+      newTasks = newTasks.concat(obj.items);
+    }
+    setTasks(newTasks);
+  }, []);
+
   return (
     <>
-      <DataTable columns={columns} data={workItems} />
+      <DataTable columns={columns} data={tasks} />
     </>
   );
 }

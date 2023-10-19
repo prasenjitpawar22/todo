@@ -43,8 +43,7 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow className="" key={headerGroup.id}>
               {headerGroup.headers.map((header, index) => {
-                console.log(headerGroup.headers.length, { index });
-
+                // console.log(headerGroup.headers.length, { index });
                 return (
                   <TableHead
                     className="border-r border-secondary"

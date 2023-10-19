@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   const navItems = [
+    { name: "Board", link: "/" },
     { name: "Items", link: "/items" },
-    // { name: "Boards" },
     // { name: "Sprints" },
     // { name: "Backlogs" },
   ];
@@ -15,14 +15,21 @@ export default function Sidebar() {
     >
       <div className="flex flex-col xs:gap-4 xl:gap-3">
         {navItems?.map((item, i) => (
-          <Link key={i} to={item.link} className="flex">
+          <NavLink
+            key={i}
+            to={item.link}
+            className={({ isActive }) =>
+              `flex ` +
+              (isActive ? `[&>button]:bg-primary [&>button]:text-white ` : ``)
+            }
+          >
             <Button
               variant={"secondary"}
               className="w-full hover:bg-primary hover:text-white "
             >
               {item.name}
             </Button>
-          </Link>
+          </NavLink>
         ))}
       </div>
     </div>
