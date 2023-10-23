@@ -5,7 +5,7 @@ export enum columnstate {
   In_progress = "In progress",
   Done = "Done",
   To_do = "To do",
-  In_review = "In review",
+  In_review = "Procrastinating",
 }
 
 export type Column = {

@@ -1,4 +1,4 @@
-import { Task, columnstate, useBoard } from "@/components/board-provider";
+import { Task, useBoard } from "@/components/board-provider";
 import { DataTable } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
@@ -8,16 +8,18 @@ const columns: ColumnDef<Task>[] = [
     accessorKey: "id",
     header: "Id",
     size: 350,
+    minSize: 250,
   },
-  { accessorKey: "title", header: "Title" },
-  { accessorKey: "assignedTo", header: "Assigned To" },
-  { accessorKey: "state", header: "Status" },
-  { accessorKey: "tags", header: "Tags" },
-  { accessorKey: "comments", header: "Comments" },
   {
-    accessorKey: "activityDate",
-    header: "Activity Date",
+    accessorKey: "title",
+    header: "Title",
     enableResizing: false,
+  },
+  {
+    accessorKey: "state",
+    header: "Status",
+    enableResizing: false,
+    enableColumnFilter: true,
   },
 ];
 
@@ -36,8 +38,11 @@ export default function WorkItems() {
   }, []);
 
   return (
-    <>
-      <DataTable columns={columns} data={tasks} />
-    </>
+    <div className="flex flex-col gap-4">
+      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight dark:text-card-foreground">
+        All Tasks
+      </h3>
+      <DataTable globalFiltering columns={columns} data={tasks} />
+    </div>
   );
 }

@@ -198,12 +198,12 @@ export default function Board() {
                                         variant={"secondary"}
                                         className={
                                           item.state === columnstate.In_progress
-                                            ? `bg-blue-300 dark:bg-blue-500`
+                                            ? `bg-blue-300 hover:bg-blue-300 dark:bg-blue-500`
                                             : item.state ===
                                               columnstate.In_review
-                                            ? `bg-orange-300 dark:bg-orange-500`
+                                            ? `bg-orange-300 hover:bg-orange-300 dark:bg-orange-500`
                                             : item.state === columnstate.Done
-                                            ? `bg-green-300 dark:bg-green-500`
+                                            ? `bg-green-300 hover:bg-green-300 dark:bg-green-500`
                                             : ``
                                         }
                                       >
