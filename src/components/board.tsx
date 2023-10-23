@@ -129,7 +129,7 @@ export default function Board() {
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, { columns, setColumns })}
       >
-        {Object.entries(columns)?.map(([columnId, column], index) => {
+        {Object.entries(columns)?.map(([columnId, column]) => {
           return (
             <div className="mr-3 flex flex-col" key={columnId}>
               <Card className="w-full rounded-bl-none rounded-br-none border-secondary bg-primary text-center text-secondary">
@@ -159,7 +159,7 @@ export default function Board() {
                             draggableId={item.id}
                             index={index}
                           >
-                            {(provided, snapshot) => {
+                            {(provided) => {
                               return (
                                 <Card
                                   ref={provided.innerRef}
@@ -183,7 +183,7 @@ export default function Board() {
                                           ...columns,
                                           [columnId]: {
                                             ...column,
-                                            items: items.map((data, i) => {
+                                            items: items.map((data) => {
                                               if (data.id === item.id) {
                                                 data.title = e.target.value;
                                               }

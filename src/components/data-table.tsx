@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
           <TableHeader className="shadow-sm [&_tr]:border-secondary ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow className="" key={headerGroup.id}>
-                {headerGroup.headers.map((header, index) => {
+                {headerGroup.headers.map((header) => {
                   // console.log(headerGroup.headers.length, { index });
                   return (
                     <TableHead
