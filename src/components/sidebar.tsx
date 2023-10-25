@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { LucideKanbanSquare, LucideListTodo } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   const navItems = [
-    { name: "Board", link: "/" },
-    { name: "Items", link: "/items" },
+    { name: "Board", link: "/", icon: <LucideKanbanSquare size={20} /> },
+    { name: "Items", link: "/items", icon: <LucideListTodo size={20} /> },
   ];
   return (
     <div
@@ -23,8 +24,9 @@ export default function Sidebar() {
           >
             <Button
               variant={"secondary"}
-              className="w-full hover:bg-primary hover:text-white "
+              className="flex w-full items-center gap-1 hover:bg-primary hover:text-white "
             >
+              <span>{item.icon}</span>
               {item.name}
             </Button>
           </NavLink>
