@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Layout() {
-  if (!isMobile) {
+  if (isMobile) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-primary-foreground">
         <Alert className="w-fit">
