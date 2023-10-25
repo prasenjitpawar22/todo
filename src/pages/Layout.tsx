@@ -8,7 +8,7 @@ export default function Layout() {
   if (isMobile) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-primary-foreground">
-        <Alert className="w-fit">
+        <Alert className="w-fit border-secondary">
           <AlertTitle className="text-destructive">Heads up!</AlertTitle>
           <AlertDescription>
             This website is optimized for desktop use. Please visit on a desktop
