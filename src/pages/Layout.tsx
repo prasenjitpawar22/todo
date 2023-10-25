@@ -7,7 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 export default function Layout() {
   if (isMobile) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-primary-foreground">
+      <div className="flex min-h-screen items-center justify-center bg-primary-foreground px-3">
         <Alert className="w-fit border-secondary">
           <AlertTitle className="text-destructive">Heads up!</AlertTitle>
           <AlertDescription>
